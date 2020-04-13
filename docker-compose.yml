@@ -13,11 +13,13 @@ services:
         depends_on: 
            - airflow-metastore
         environment:
+            - AIRFLOW__CORE__FERNET_KEY=46BKJoQYlPPOexq0OhDZnIlNepKFf87WFwLbfzqDDho=
             - AIRFLOW__CORE__EXECUTOR=${EXECUTOR} 
             - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
         volumes:
             - ./entrypoint.sh:/entrypoint.sh
             - ./dags:/opt/airflow/dags
+            - ./logs:/opt/airflow/logs
         ports:
             - 8080:8080
         entrypoint: /entrypoint.sh
@@ -30,7 +32,9 @@ services:
         volumes:
             - ./entrypoint.sh:/entrypoint.sh
             - ./dags:/opt/airflow/dags
+            - ./logs:/opt/airflow/logs
         environment:
+            - AIRFLOW__CORE__FERNET_KEY=46BKJoQYlPPOexq0OhDZnIlNepKFf87WFwLbfzqDDho=
             - AIRFLOW__CORE__EXECUTOR=${EXECUTOR}
             - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
         entrypoint: /entrypoint.sh

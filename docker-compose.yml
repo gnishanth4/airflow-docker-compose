@@ -1,12 +1,12 @@
 version: '3.5'
 services:
     airflow-metastore:
-        image: postgres:12
+        image: mysql:5.7
         container_name: airflow-metastore
         environment:
-            - POSTGRES_USER=${POSTGRES_USER}
-            - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-            - POSTGRES_DB=${POSTGRES_DB}         
+            - MYQSL_ROOT_USER=${POSTGRES_USER}
+            - MYSQL_ROOT_PASSWORD=${POSTGRES_PASSWORD}
+            - MYSQL_DB=${POSTGRES_DB}         
 
     web:
         image: apache/airflow:1.10.10-python3.5

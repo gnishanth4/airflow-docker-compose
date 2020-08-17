@@ -4,9 +4,10 @@ services:
         image: mysql:5.7
         container_name: airflow-metastore
         environment:
-            - MYQSL_ROOT_USER=${POSTGRES_USER}
-            - MYSQL_ROOT_PASSWORD=${POSTGRES_PASSWORD}
-            - MYSQL_DB=${POSTGRES_DB}         
+            - MYQSL_ROOT_USER=${MYSQL_ROOT_USER}
+            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+            - MYSQL_DB=${MYSQL_DB}
+            - MYSQL_HOST=${MYSQL_HOST}
 
     web:
         image: apache/airflow:1.10.10-python3.5
@@ -15,7 +16,7 @@ services:
         environment:
             - AIRFLOW__CORE__FERNET_KEY=46BKJoQYlPPOexq0OhDZnIlNepKFf87WFwLbfzqDDho=
             - AIRFLOW__CORE__EXECUTOR=${EXECUTOR} 
-            - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
+            - AIRFLOW__CORE__SQL_ALCHEMY_CONN=mysql://${MYSQL_ROOT_USER}:${MYSQL-ROOT_PASSWORD}@${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DB}
         volumes:
             - ./entrypoint.sh:/entrypoint.sh
             - ./dags:/opt/airflow/dags
